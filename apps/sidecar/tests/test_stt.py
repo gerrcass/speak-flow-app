@@ -59,3 +59,18 @@ def test_models_status_http_ok_with_valid_token(tmp_path: Path, monkeypatch):
     body = response.json()
     assert body["model"] == "small-int8"
     assert body["downloaded"] is False
+
+
+def test_models_download_requires_token():
+    assert _client().post("/models/download").status_code == 401
+
+
+def test_models_download_starts_and_reports_contract(tmp_path: Path, monkeypatch):
+    monkeypatch.setattr(stt, "get_model_dir", lambda: tmp_path / "models")
+    response = _client().post(
+        "/models/download", headers={"Authorization": "Bearer test-token"}
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["started"] is True
+    assert body["downloaded"] is False

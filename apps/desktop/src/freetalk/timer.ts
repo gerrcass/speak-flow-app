@@ -7,6 +7,13 @@ export type FreeTalkDuration = "45" | "60" | "90";
 
 export const FREE_TALK_DURATIONS: readonly FreeTalkDuration[] = ["45", "60", "90"];
 
+/** Parse a select value into a FreeTalkDuration; unknown values fall back to "60". */
+export function parseFreeTalkDuration(value: string): FreeTalkDuration {
+  return (FREE_TALK_DURATIONS as readonly string[]).includes(value)
+    ? (value as FreeTalkDuration)
+    : "60";
+}
+
 /** Selected duration in milliseconds. */
 export function durationMs(duration: FreeTalkDuration): number {
   return Number(duration) * 1000;

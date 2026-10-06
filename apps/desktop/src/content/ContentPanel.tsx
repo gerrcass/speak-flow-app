@@ -4,7 +4,7 @@ import { importPastedPack, withVerifiedPack } from "../proofs/content-pack-verif
 import { toPhrasesPack, type ContentPack } from "./pack.ts";
 import { BUNDLED_PACK_FILES } from "./pack-files.ts";
 import { startSession, type PracticeSession } from "./session.ts";
-import { getByokKey, setByokKey } from "./byok-key.ts";
+import { getByokKey, loadByokKeyFromStore, setByokKey } from "./byok-key.ts";
 import type { BundledPackName, GenerateProvider } from "../renderer/api";
 import "./ContentPanel.css";
 
@@ -16,9 +16,19 @@ interface ListedPack {
   pack: ContentPack;
 }
 
-const PROVIDER_BADGE: Record<GenerateProvider, string> = {
-  local: "Local (offline)",
-  byok: "BYOK (cloud, billed to your key)",
+interface ProviderConfig {
+  badge: string;
+  badgeClass: string;
+  needsKey: boolean;
+}
+
+// One entry per GenerateProvider so badge text, badge class, and key gating
+// stay consistent across the panel. BYOK badge claims only key usage, not a
+// cloud call: byok generation currently serves template items (see
+// sidecar content_gen.generate_byok) until a user key enables upstream calls.
+const PROVIDER_CONFIG: Record<GenerateProvider, ProviderConfig> = {
+  local: { badge: "Local (offline)", badgeClass: "badge-provider-local", needsKey: false },
+  byok: { badge: "BYOK (your key)", badgeClass: "badge-provider-byok", needsKey: true },
 };
 
 // Content Packs panel (ticket #3): bundled packs load verified, manual
@@ -34,11 +44,17 @@ export function ContentPanel() {
   const [level, setLevel] = useState<Level>("A1");
   const [focus, setFocus] = useState<Focus>("th");
   const [keyInput, setKeyInput] = useState(getByokKey() ?? "");
+  const providerConfig = PROVIDER_CONFIG[provider];
+  // Provenance of the last generation, so template (synthetic) content is
+  // always labeled: local template when Ollama is unreachable, BYOK template
+  // while the cloud call stays unwired.
+  const [lastProvenance, setLastProvenance] = useState<"ollama" | "local-template" | "byok-template" | null>(
+    null,
+  );
 
   useEffect(() => {
     let cancelled = false;
-    void (async () => {
-      const loaded: ListedPack[] = [];
+    void (async () => {      const loaded: ListedPack[] = [];
       for (const file of BUNDLED_PACK_FILES) {
         try {
           const text = await window.api.readContentPack(file as BundledPackName);
@@ -53,6 +69,10 @@ export function ContentPanel() {
     return () => {
       cancelled = true;
     };
+  }, []);
+
+  useEffect(() => {
+    void loadByokKeyFromStore().then(() => setKeyInput(getByokKey() ?? ""));
   }, []);
 
   function beginSession(source: string, pack: ContentPack) {
@@ -85,16 +105,19 @@ export function ContentPanel() {
         level,
         focus,
         count: 5,
-        key: provider === "byok" ? (getByokKey() ?? undefined) : undefined,
+        key: providerConfig.needsKey ? (getByokKey() ?? undefined) : undefined,
       });
       const pack = toPhrasesPack(`generated-${Date.now()}`, generated.items);
       if (pack === null) throw new Error("generated items failed validation");
       setPacks((previous) => [...previous, { source: `generated-${provider}`, pack }]);
+      setLastProvenance(
+        provider === "byok" ? "byok-template" : generated.offline ? "local-template" : "ollama",
+      );
       beginSession(`generated-${provider}`, pack);
     } catch {
       setError(
-        provider === "byok" && getByokKey() === null
-          ? "BYOK needs your provider key first (kept in session memory only)."
+        providerConfig.needsKey && getByokKey() === null
+          ? "BYOK needs your provider key first (kept in the OS keychain or session memory only)."
           : "Content generation failed; is the sidecar running?",
       );
     }
@@ -133,8 +156,8 @@ export function ContentPanel() {
 
       <h3>Generate</h3>
       <p className="provider-row">
-        <span className={provider === "local" ? "badge-provider-local" : "badge-provider-byok"}>
-          {PROVIDER_BADGE[provider]}
+        <span className={providerConfig.badgeClass}>
+          {providerConfig.badge}
         </span>
       </p>
       <div className="generate-row">
@@ -162,7 +185,7 @@ export function ContentPanel() {
           </select>
         </label>
       </div>
-      {provider === "byok" && (
+      {providerConfig.needsKey && (
         <label className="byok-key">
           Your provider key
           <input
@@ -172,7 +195,7 @@ export function ContentPanel() {
               setKeyInput(event.target.value);
               setByokKey(event.target.value);
             }}
-            placeholder="Pasted key, session memory only"
+            placeholder="Pasted key, OS keychain when available"
             autoComplete="off"
           />
         </label>
@@ -184,6 +207,12 @@ export function ContentPanel() {
       <Button variant="primary" size="md" onClick={() => void generate()}>
         Generate 5 References
       </Button>
+      {lastProvenance === "local-template" && (
+        <p className="generate-note">Offline template content (local model unreachable).</p>
+      )}
+      {lastProvenance === "byok-template" && (
+        <p className="generate-note">Template content (BYOK cloud call not wired yet).</p>
+      )}
 
       {error !== "" && (
         <p className="content-error" role="alert">

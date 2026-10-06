@@ -2,8 +2,9 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { join } from "node:path";
+import { unlink, readFile, writeFile } from "node:fs/promises";
 import type { DatabaseSync } from "node:sqlite";
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, safeStorage } from "electron";
 import { listAttempts, openAttemptsDb, saveAttempt, type AttemptRow } from "./freetalk/store";
 import { listDueCards } from "./srs/cards";
 import { waitForSidecar } from "./sidecar";
@@ -62,8 +63,71 @@ function registerAttemptHandlers(): void {
   ipcMain.handle("srs:list-due", (_event, now: string) => listDueCards(attemptsDb(), now));
 }
 
+let byokMemoryKey: string | null = null;
+
+// BYOK key storage (ADR-0004, ticket #3): OS keychain via safeStorage when
+// encryption is available, else session memory only. The encrypted blob lives
+// in userData (mode 0600); the key itself is never logged, never bundled,
+// never committed.
+function byokKeyFile(): string {
+  return join(app.getPath("userData"), "byok-key.bin");
+}
+
+function byokKeychainAvailable(): boolean {
+  try {
+    return safeStorage.isEncryptionAvailable();
+  } catch {
+    return false;
+  }
+}
+
+function registerByokHandlers(): void {
+  ipcMain.handle("byok:set", async (_event, value: unknown) => {
+    const next = typeof value === "string" && value.length > 0 ? value : null;
+    byokMemoryKey = next;
+    if (next === null) {
+      try {
+        await unlink(byokKeyFile());
+      } catch {
+        // Nothing stored: already memory-only.
+      }
+      return true;
+    }
+    if (byokKeychainAvailable()) {
+      try {
+        await writeFile(byokKeyFile(), safeStorage.encryptString(next), { mode: 0o600 });
+      } catch {
+        // Session-memory copy above still serves this run.
+      }
+    }
+    return true;
+  });
+  ipcMain.handle("byok:get", async () => {
+    if (byokMemoryKey !== null) return byokMemoryKey;
+    if (!byokKeychainAvailable()) return null;
+    try {
+      const decrypted = safeStorage.decryptString(await readFile(byokKeyFile()));
+      byokMemoryKey = decrypted.length > 0 ? decrypted : null;
+      return byokMemoryKey;
+    } catch {
+      return null;
+    }
+  });
+  ipcMain.handle("byok:has", async () => {
+    if (byokMemoryKey !== null) return true;
+    if (!byokKeychainAvailable()) return false;
+    try {
+      await readFile(byokKeyFile());
+      return true;
+    } catch {
+      return false;
+    }
+  });
+}
+
 app.whenReady().then(async () => {
   registerAttemptHandlers();
+  registerByokHandlers();
   await startSidecar();
   createWindow();
   void checkForUpdates();

@@ -78,3 +78,7 @@
 .content-error {
   color: var(--color-feedback-fail);
 }
+
+.generate-note {
+  color: var(--color-fg-primary);
+}

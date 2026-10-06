@@ -7,6 +7,7 @@ import {
   FREE_TALK_DURATIONS,
   durationMs,
   isTimeUp,
+  parseFreeTalkDuration,
   remainingMs,
 } from "../src/freetalk/timer.ts";
 
@@ -29,4 +30,12 @@ test("elapsed past the duration clamps at zero and reports time-up", () => {
   assert.equal(remainingMs("45", 46000), 0);
   assert.equal(isTimeUp("45", 44999), false);
   assert.equal(isTimeUp("45", 45000), true);
+});
+
+test("select values parse to durations, unknown values fall back to 60s", () => {
+  assert.equal(parseFreeTalkDuration("45"), "45");
+  assert.equal(parseFreeTalkDuration("60"), "60");
+  assert.equal(parseFreeTalkDuration("90"), "90");
+  assert.equal(parseFreeTalkDuration(""), "60");
+  assert.equal(parseFreeTalkDuration("120"), "60");
 });

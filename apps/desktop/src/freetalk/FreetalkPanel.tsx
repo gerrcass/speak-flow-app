@@ -8,7 +8,7 @@ import { snippet } from "./history.ts";
 import type { AttemptRow } from "./store.ts";
 import { cefrHints, keywordRecall, typeTokenRatio, type CefrHintResult } from "./rubric.ts";
 import { computeFluency, type FluencyStats } from "../scoring/scoring.ts";
-import { durationMs, FREE_TALK_DURATIONS, isTimeUp, remainingMs, type FreeTalkDuration } from "./timer.ts";
+import { durationMs, FREE_TALK_DURATIONS, isTimeUp, parseFreeTalkDuration, remainingMs, type FreeTalkDuration } from "./timer.ts";
 import "./FreetalkPanel.css";
 
 type Phase = "idle" | "recording" | "scored" | "error";
@@ -144,6 +144,8 @@ export function FreetalkPanel() {
       setPhase("error");
       return;
     }
+    // No VAD wired yet: speech and total share audioMs, so pauseRatio is 0
+    // (honest placeholder, not measured silence).
     const fluency = computeFluency({ transcript: finalTranscript, speechMs: audioMs, totalMs: audioMs });
     const recall = keywordRecall(activePrompt.text, finalTranscript);
     attemptSeq.current += 1;
@@ -197,8 +199,9 @@ export function FreetalkPanel() {
           className="freetalk-duration"
           value={duration}
           onChange={(event) => {
-            setDuration(event.target.value as FreeTalkDuration);
-            setRemaining(durationMs(event.target.value as FreeTalkDuration));
+            const next = parseFreeTalkDuration(event.target.value);
+            setDuration(next);
+            setRemaining(durationMs(next));
           }}
           disabled={phase === "recording"}
         >
@@ -250,7 +253,8 @@ export function FreetalkPanel() {
           </p>
         </div>
       )}
-      <p className="freetalk-disclaimer">emulacion calibrada, no certificador</p>
+      {/* spec-mandated Spanish disclaimer (#4), exempt from English-everywhere */}
+      <p className="freetalk-disclaimer">emulación calibrada, no certificador</p>
       {history.length > 0 && (
         <div className="freetalk-history">
           <h3>History</h3>

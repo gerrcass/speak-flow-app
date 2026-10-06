@@ -40,6 +40,8 @@ export function scoreAttempt<N>(
     score: pronunciationScore(value.reference, value.transcript),
     band: scoreBand(pronunciationScore(value.reference, value.transcript)),
     failed: failedWords(value.reference, value.transcript),
+    // No VAD wired yet: speech and total share audioMs, so pauseRatio is 0
+    // (honest placeholder, not measured silence).
     fluency: computeFluency({
       transcript: value.transcript,
       speechMs: value.audioMs,

@@ -202,7 +202,12 @@ export function PracticePanel({ initialReference = "The cat sat on the mat." }: 
           </Button>
         )}
       </div>
-      {ttsEngine !== null && <p className="practice-tts-engine">Example voice: {ttsEngine}</p>}
+      {/* X-TTS-Engine stays truthful: "stub (offline)" labels synthetic audio. */}
+      {ttsEngine !== null && (
+        <p className="practice-tts-engine">
+          Example voice: {ttsEngine === "stub" ? "stub (offline)" : ttsEngine}
+        </p>
+      )}
       {error !== "" && (
         <p className="practice-error" role="alert">
           {error}
@@ -230,7 +235,8 @@ export function PracticePanel({ initialReference = "The cat sat on the mat." }: 
           </p>
         </div>
       )}
-      <p className="practice-disclaimer">emulacion calibrada, no certificador</p>
+      {/* spec-mandated Spanish disclaimer (#4), exempt from English-everywhere */}
+      <p className="practice-disclaimer">emulación calibrada, no certificador</p>
     </section>
   );
 }

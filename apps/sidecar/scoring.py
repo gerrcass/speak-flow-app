@@ -1,5 +1,9 @@
 """Scoring for Repeat-after-me + Read-Aloud (ticket #4).
 
+Source of truth for served scores is this file; the desktop scoring.ts is
+the offline-display mirror (same algorithm, tested to match). Keep both in
+sync when either changes.
+
 Mirrors apps/desktop/src/scoring/scoring.ts: Pronunciation Score = 100-WER
 over lowercased word tokens, failed words via alignment, Fluency Stats
 (WPM, pause ratio, filler rate) from VAD-style durations. Pure functions so
@@ -80,6 +84,7 @@ def score_band(score: int) -> str:
 
 
 def compute_fluency(transcript: str, speech_ms: int, total_ms: int) -> dict:
+    """Honest stub: pause_ratio derives from caller durations, not a real VAD."""
     words = tokenize(transcript)
     minutes = speech_ms / 60000
     fillers = [w for w in words if w in FILLERS]
