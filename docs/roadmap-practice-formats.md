@@ -53,3 +53,6 @@ F10 ELSA-like phoneme-perfect feedback needs proprietary accent models. Offline 
 
 ## Ticket #4 crumb
 Repeat-after-me + Read-Aloud scored loop ships bands pass >85 / warn 70-85 / fail <70 on Pronunciation Score (100-WER) with disclaimer "emulacion calibrada, no certificador"; scoreAttempt demands AttemptTranscribed, TTS example is Piper-or-stub via honest X-TTS-Engine header.
+
+## Ticket #5 crumb
+Free-talk loop ships cue-card Prompts + 45/60/90s timer with auto-stop, TS-only soft rubric (keyword recall + TTR + CEFR hints, no grade), and node:sqlite attempts/srs_cards tables in userData via main-process IPC (wer null for free-talk); sidecar untouched.

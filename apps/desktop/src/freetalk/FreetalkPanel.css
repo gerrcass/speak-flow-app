@@ -1,0 +1,93 @@
+/* Free-talk panel uses semantic tokens only (var(--*)). Never hex literals. */
+.freetalk-panel {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.freetalk-cue-card {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.freetalk-cue-text {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-cue-level {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-controls {
+  padding: var(--space-inset-sm);
+}
+
+.freetalk-duration-label {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-duration {
+  color: var(--color-fg-primary);
+  background: var(--color-surface-app);
+}
+
+.freetalk-error {
+  color: var(--color-feedback-fail);
+}
+
+.freetalk-transcript {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-rubric {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-recall {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-ttr {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-cefr {
+  color: var(--color-feedback-warn);
+}
+
+.freetalk-fluency {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-disclaimer {
+  color: var(--color-feedback-warn);
+}
+
+.freetalk-history {
+  padding: var(--space-inset-sm);
+}
+
+.freetalk-history-list {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-history-item {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-history-date {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-history-prompt {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-history-wpm {
+  color: var(--color-fg-primary);
+}
+
+.freetalk-history-snippet {
+  color: var(--color-fg-primary);
+}

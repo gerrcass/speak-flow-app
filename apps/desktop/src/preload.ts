@@ -1,9 +1,10 @@
 // Preload bridge: renderer asks the sidecar /health through here.
 // Reads SIDECAR_PORT/SIDECAR_TOKEN from the main-process environment.
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { isBundledPackFile, resolvePackPath } from "./content/pack-files";
+import type { AttemptRow } from "./freetalk/store";
 
 async function sidecarHealth(): Promise<string> {
   const port = process.env.SIDECAR_PORT ?? "4317";
@@ -22,6 +23,8 @@ contextBridge.exposeInMainWorld("api", {
   readContentPack,
   generateContent,
   ttsExample,
+  saveAttempt,
+  listAttempts,
 });
 
 export interface SttConfig {
@@ -107,4 +110,12 @@ async function ttsExample(text: string): Promise<TtsExample> {
   let binary = "";
   for (const byte of bytes) binary += String.fromCharCode(byte);
   return { audio: btoa(binary), engine };
+}
+
+async function saveAttempt(row: AttemptRow): Promise<boolean> {
+  return ipcRenderer.invoke("attempts:save", row) as Promise<boolean>;
+}
+
+async function listAttempts(): Promise<AttemptRow[]> {
+  return ipcRenderer.invoke("attempts:list") as Promise<AttemptRow[]>;
 }

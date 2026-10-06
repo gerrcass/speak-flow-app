@@ -2,7 +2,9 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { join } from "node:path";
-import { app, BrowserWindow } from "electron";
+import type { DatabaseSync } from "node:sqlite";
+import { app, BrowserWindow, ipcMain } from "electron";
+import { listAttempts, openAttemptsDb, saveAttempt, type AttemptRow } from "./freetalk/store";
 import { waitForSidecar } from "./sidecar";
 
 let sidecar: ChildProcess | null = null;
@@ -39,11 +41,33 @@ function createWindow(): void {
   }
 }
 
+let db: DatabaseSync | null = null;
+
+// Attempts DB lives in userData so history survives restarts; SPEAK_FLOW_DB
+// overrides the file path (used by tests with a tmp file).
+function attemptsDb(): DatabaseSync {
+  if (db === null) {
+    db = openAttemptsDb(process.env.SPEAK_FLOW_DB ?? join(app.getPath("userData"), "speak-flow.db"));
+  }
+  return db;
+}
+
+function registerAttemptHandlers(): void {
+  ipcMain.handle("attempts:save", (_event, row: AttemptRow) => {
+    saveAttempt(attemptsDb(), row);
+    return true;
+  });
+  ipcMain.handle("attempts:list", () => listAttempts(attemptsDb()));
+}
+
 app.whenReady().then(async () => {
+  registerAttemptHandlers();
   await startSidecar();
   createWindow();
 });
 
 app.on("before-quit", () => {
   sidecar?.kill();
+  db?.close();
+  db = null;
 });
