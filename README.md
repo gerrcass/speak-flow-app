@@ -39,8 +39,14 @@ Key decisions: `docs/adr/` (0001 direct local models, 0002 Electron + sidecar, 0
 # 1. Install JS workspaces
 pnpm install
 
-# 2. Install sidecar deps (includes pytest + httpx for the test suite)
+# 2. Install sidecar deps (light: API + tests only, no ML weights)
 pip install -r apps/sidecar/requirements-dev.txt
+# If pip crashes with an AssertionError in resolvelib, upgrade it first:
+# python3 -m pip install --upgrade pip
+
+# 2b. Optional: real local transcription (faster-whisper small-int8, ~100MB).
+# Without it the sidecar runs with an honest stub so every flow stays demoable.
+# pip install -r apps/sidecar/requirements-stt.txt
 
 # 3. Run the sidecar (separate terminal; Electron spawns it automatically in dev)
 SIDECAR_TOKEN=dev-token SIDECAR_PORT=4317 \

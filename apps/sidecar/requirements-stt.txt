@@ -1,0 +1,7 @@
+# OPTIONAL real local STT (ADR-0001): faster-whisper small-int8 on CPU.
+# Only needed for real transcription; the sidecar runs with an honest stub
+# without it (stt.py imports lazily, pytest never touches weights).
+# Heavy (~100MB: ctranslate2, onnxruntime, av, tokenizers). If pip crashes
+# with an AssertionError in resolvelib, upgrade pip first:
+#   python3 -m pip install --upgrade pip
+faster-whisper

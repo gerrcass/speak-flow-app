@@ -1,6 +1,8 @@
 fastapi==0.142.2
 uvicorn==0.54.0
 websockets==16.1.1
-# Local STT weights (ADR-0001). Import stays lazy in stt.py so pytest and
-# model-less runs never download weights; CPU int8 small by default.
-faster-whisper
+# Real local STT (ADR-0001) is OPTIONAL and lives in requirements-stt.txt:
+# faster-whisper pulls ~100MB of ML wheels (ctranslate2, onnxruntime, av)
+# and needs a modern pip. stt.py imports it lazily with a stub fallback,
+# so the service, pytest, and model-less runs work without it.
+# For real transcription: pip install -r apps/sidecar/requirements-stt.txt
