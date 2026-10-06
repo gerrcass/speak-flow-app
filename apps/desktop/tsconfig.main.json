@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
+    "outDir": "dist-main"
+  },
+  "include": ["src/main.ts", "src/preload.ts", "src/sidecar.ts"]
+}

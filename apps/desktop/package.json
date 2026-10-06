@@ -1,0 +1,29 @@
+{
+  "name": "@speak-flow/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Speak Flow desktop shell: Electron + React TS + supervised Python sidecar",
+  "main": "dist-main/main.js",
+  "scripts": {
+    "dev": "vite build && tsc -p tsconfig.main.json && electron .",
+    "build": "tsc --noEmit && vite build && tsc -p tsconfig.main.json",
+    "typecheck": "tsc --noEmit",
+    "tokens:build": "node scripts/generate-tokens.mjs",
+    "tokens:check": "node scripts/generate-tokens.mjs && git diff --exit-code -- generated",
+    "hex-gate": "node scripts/hex-gate.mjs",
+    "test": "node --test \"tests/*.test.mjs\" && node --experimental-strip-types --test \"tests/*.test.ts\""
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^33.0.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3"
+  }
+}
