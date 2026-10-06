@@ -48,14 +48,18 @@ pip install -r apps/sidecar/requirements-dev.txt
 # Without it the sidecar runs with an honest stub so every flow stays demoable.
 # pip install -r apps/sidecar/requirements-stt.txt
 
-# 3. Run the sidecar (separate terminal; Electron spawns it automatically in dev)
+# 3. Run the desktop app (Electron spawns + supervises the sidecar itself,
+# with its own per-boot token — no manual sidecar needed)
+pnpm dev
+
+# Optional: run the sidecar manually in its own terminal to debug the API
+# directly (it runs in the foreground; that blinking cursor means it is
+# serving — leave it running and use another terminal for curl/pnpm dev).
+# SIDECAR_TOKEN must match the token the other side uses.
 SIDECAR_TOKEN=dev-token SIDECAR_PORT=4317 \
   python3 apps/sidecar/main.py
 # check: curl -H "Authorization: Bearer dev-token" http://127.0.0.1:4317/health
 # → {"status":"ok"}
-
-# 4. Run the desktop app
-pnpm dev
 ```
 
 First run downloads speech models on demand to `%APPDATA%/speak-flow/models` (Windows) or `$XDG_DATA_HOME/speak-flow/models` (Linux/macOS). Use the in-app Models screen ("Download models") or trigger the first transcription; progress is shown in the UI.
@@ -121,6 +125,17 @@ docs/  adr/, design-system/, gdp-ts/, packaging/, agents/
 `apps/desktop/package.json` (`build` key) configures electron-builder NSIS (per-user, non-one-click) excluding model weights (`!**/models/**`, `*.pt/bin/onnx`) and bundling `content/*.json`. First-run model download happens in-app; `electron-updater` checks the configured feed on start.
 
 ## Troubleshooting
+
+- `libnss3.so: cannot open shared object file` (or other `.so` errors) on Linux:
+  Electron needs system libraries. On Debian/Ubuntu:
+  ```sh
+  sudo apt-get update && sudo apt-get install -y libnss3 libatk1.0-0 \
+    libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 \
+    libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 \
+    libpango-1.0-0 libcairo2
+  ```
+- The `zod ... contains an annotation that Rollup cannot interpret` warnings
+  during `vite build` are harmless (Rollup strips those comments).
 
 - `401 invalid sidecar token`: `SIDECAR_TOKEN` must match between the sidecar process and the Electron main process. In manual runs, export the same value in both terminals.
 - `Port in use`: override with `SIDECAR_PORT=<free-port>` in both processes.
