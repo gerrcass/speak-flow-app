@@ -13,4 +13,16 @@ async function sidecarHealth(): Promise<string> {
   return body.status ?? "unknown";
 }
 
-contextBridge.exposeInMainWorld("api", { sidecarHealth });
+contextBridge.exposeInMainWorld("api", { sidecarHealth, sttConfig });
+
+export interface SttConfig {
+  port: number;
+  token: string;
+}
+
+async function sttConfig(): Promise<SttConfig> {
+  return {
+    port: Number(process.env.SIDECAR_PORT ?? "4317"),
+    token: process.env.SIDECAR_TOKEN ?? "",
+  };
+}
