@@ -1,0 +1,13 @@
+@import "../generated/tokens.css";
+
+/* App shell uses semantic tokens only (var(--*)). Never hex literals. */
+body {
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  padding: var(--space-inset-md);
+}

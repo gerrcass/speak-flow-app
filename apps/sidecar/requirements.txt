@@ -1,0 +1,6 @@
+fastapi==0.142.2
+uvicorn==0.54.0
+websockets==16.1.1
+# Local STT weights (ADR-0001). Import stays lazy in stt.py so pytest and
+# model-less runs never download weights; CPU int8 small by default.
+faster-whisper

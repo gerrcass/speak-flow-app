@@ -1,0 +1,4 @@
+# Test/dev deps for the sidecar. Runtime deps stay in requirements.txt.
+-r requirements.txt
+pytest
+httpx

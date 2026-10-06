@@ -1,0 +1,22 @@
+/* Drill panel uses semantic tokens only (var(--*)). Never hex literals. */
+.drill-panel {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.drill-list {
+  color: var(--color-fg-primary);
+}
+
+.drill-item {
+  color: var(--color-fg-primary);
+}
+
+.drill-empty {
+  color: var(--color-fg-primary);
+}
+
+.drill-error {
+  color: var(--color-feedback-fail);
+}

@@ -1,0 +1,23 @@
+/* STT panel uses semantic tokens only (var(--*)). Never hex literals. */
+.stt-panel {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.stt-progress {
+  color: var(--color-feedback-warn);
+}
+
+.stt-error {
+  color: var(--color-feedback-fail);
+}
+
+.stt-partial {
+  color: var(--color-fg-primary);
+  min-height: 1.5em;
+}
+
+.stt-final {
+  color: var(--color-feedback-pass);
+}

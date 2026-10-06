@@ -82,3 +82,8 @@ export function scoreAttempt<A>(attempt: Named<A, Attempt>, _p: AttemptTranscrib
 ## Breadcrumb rule
 
 When adding a proof, append one bullet here: *fact → minter → demanders → why not just an `if`*. Keep it to one line each.
+
+## Breadcrumbs
+
+- ContentPackVerified → minted by withVerifiedPack in proofs/ after zod schema + level-tag check → demanded by startSession → compiler rejects unverified packs instead of hoping a guard ran.
+- DrillQualified → minted by withQualifiedDrill in proofs/ after WER>30% or 2x-failed-word check → demanded by promoteToSrs → compiler rejects SRS spam instead of hoping a guard ran.

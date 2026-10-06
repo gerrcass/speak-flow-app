@@ -1,0 +1,29 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pnpm install --frozen-lockfile
+      - run: pip install -r apps/sidecar/requirements-dev.txt
+      - name: tokens drift check (regenerate and fail on diff)
+        run: pnpm tokens:build && git diff --exit-code -- apps/desktop/generated
+      - name: typecheck (includes Button closed-union contract)
+        run: pnpm typecheck
+      - name: hex-gate (no hardcoded hex in apps/desktop/src)
+        run: pnpm --filter @speak-flow/desktop hex-gate
+      - name: tests (desktop seams + sidecar /health)
+        run: pnpm test
