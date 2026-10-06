@@ -14,8 +14,10 @@
     "test": "node --test \"tests/*.test.mjs\" && node --experimental-strip-types --test \"tests/*.test.ts\""
   },
   "dependencies": {
+    "@gdp-ts/core": "^0.1.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@types/node": "^22.9.0",

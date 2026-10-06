@@ -8,9 +8,12 @@ Ticket #1 exposed GET /health; ticket #2 adds the STT stream + model status.
 import os
 
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException, WebSocket, status
+from fastapi import Depends, FastAPI, Header, HTTPException, WebSocket, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from pydantic import BaseModel, Field
+from typing import Literal
 
+import content_gen
 import stt
 
 _bearer = HTTPBearer(auto_error=False)
@@ -37,6 +40,42 @@ def health() -> dict[str, str]:
 @app.get("/models/status", dependencies=[Depends(require_token)])
 def models_status() -> dict[str, object]:
     return stt.models_status()
+
+
+class GenerateRequest(BaseModel):
+    """POST /content/generate body (ADR-0004, ticket #3). Local inference is
+    the offline default; BYOK is opt-in cloud billed to the user's own key."""
+
+    provider: Literal["local", "byok"] = "local"
+    level: str = "A2"
+    focus: str = "th"
+    count: int = Field(default=5, ge=1, le=20)
+
+
+@app.post("/content/generate", dependencies=[Depends(require_token)])
+def content_generate(
+    request: GenerateRequest,
+    x_provider_key: str | None = Header(default=None),
+) -> dict[str, object]:
+    if request.level not in content_gen.LEVELS:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="unknown level"
+        )
+    if request.focus not in content_gen.FOCUSES:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="unknown focus"
+        )
+    if request.provider == "byok":
+        # The user key travels per-request in a header and is never stored
+        # server-side, never logged, and never echoed back. Missing key is a
+        # 400 (client error), not a 401 (sidecar token is already valid here).
+        if not x_provider_key:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="byok provider needs an X-Provider-Key header",
+            )
+        return content_gen.generate_byok(request.level, request.focus, request.count)
+    return content_gen.generate_local(request.level, request.focus, request.count)
 
 
 def _is_end_message(raw: str) -> bool:

@@ -1,0 +1,156 @@
+{
+  "id": "prompts-30",
+  "kind": "prompts",
+  "items": [
+    {
+      "id": "p01",
+      "text": "Talk about your family for 30 seconds.",
+      "level": "A1"
+    },
+    {
+      "id": "p02",
+      "text": "Describe your favorite food.",
+      "level": "A1"
+    },
+    {
+      "id": "p03",
+      "text": "Talk about your morning routine.",
+      "level": "A1"
+    },
+    {
+      "id": "p04",
+      "text": "Describe your home.",
+      "level": "A1"
+    },
+    {
+      "id": "p05",
+      "text": "Talk about your best friend.",
+      "level": "A1"
+    },
+    {
+      "id": "p06",
+      "text": "Describe a pet you like.",
+      "level": "A1"
+    },
+    {
+      "id": "p07",
+      "text": "Talk about what you did yesterday.",
+      "level": "A1"
+    },
+    {
+      "id": "p08",
+      "text": "Describe the weather today.",
+      "level": "A1"
+    },
+    {
+      "id": "p09",
+      "text": "Talk about your hobby.",
+      "level": "A1"
+    },
+    {
+      "id": "p10",
+      "text": "Describe your school or workplace.",
+      "level": "A1"
+    },
+    {
+      "id": "p11",
+      "text": "Talk about your last weekend for one minute.",
+      "level": "A2"
+    },
+    {
+      "id": "p12",
+      "text": "Describe a trip you enjoyed.",
+      "level": "A2"
+    },
+    {
+      "id": "p13",
+      "text": "Talk about a film you liked.",
+      "level": "A2"
+    },
+    {
+      "id": "p14",
+      "text": "Describe your dream job.",
+      "level": "A2"
+    },
+    {
+      "id": "p15",
+      "text": "Talk about a gift you received.",
+      "level": "A2"
+    },
+    {
+      "id": "p16",
+      "text": "Describe a festival in your country.",
+      "level": "A2"
+    },
+    {
+      "id": "p17",
+      "text": "Talk about your favorite season and why.",
+      "level": "A2"
+    },
+    {
+      "id": "p18",
+      "text": "Describe a person you admire.",
+      "level": "A2"
+    },
+    {
+      "id": "p19",
+      "text": "Talk about a difficult decision you made.",
+      "level": "A2"
+    },
+    {
+      "id": "p20",
+      "text": "Describe your plans for next year.",
+      "level": "A2"
+    },
+    {
+      "id": "p21",
+      "text": "Discuss the advantages of learning English for 90 seconds.",
+      "level": "B1"
+    },
+    {
+      "id": "p22",
+      "text": "Talk about how technology changed daily life.",
+      "level": "B1"
+    },
+    {
+      "id": "p23",
+      "text": "Describe a challenge you overcame and what you learned.",
+      "level": "B1"
+    },
+    {
+      "id": "p24",
+      "text": "Discuss whether cities are better than villages.",
+      "level": "B1"
+    },
+    {
+      "id": "p25",
+      "text": "Talk about an environmental problem and possible solutions.",
+      "level": "B1"
+    },
+    {
+      "id": "p26",
+      "text": "Describe a skill you want to learn and why.",
+      "level": "B1"
+    },
+    {
+      "id": "p27",
+      "text": "Discuss the role of music in your life.",
+      "level": "B1"
+    },
+    {
+      "id": "p28",
+      "text": "Talk about a news story that caught your attention.",
+      "level": "B1"
+    },
+    {
+      "id": "p29",
+      "text": "Describe how you handle stress.",
+      "level": "B1"
+    },
+    {
+      "id": "p30",
+      "text": "Discuss what makes a good friend.",
+      "level": "B1"
+    }
+  ]
+}

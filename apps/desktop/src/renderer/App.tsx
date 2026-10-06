@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
+import { ContentPanel } from "../content/ContentPanel";
 import { SttPanel } from "../stt/SttPanel";
 
 // Placeholder window for ticket #1. Practice formats (Repeat-after-me,
@@ -27,6 +28,7 @@ export function App() {
         Record Attempt
       </Button>
       <SttPanel />
+      <ContentPanel />
     </main>
   );
 }

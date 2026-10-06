@@ -1,6 +1,9 @@
 // Preload bridge: renderer asks the sidecar /health through here.
 // Reads SIDECAR_PORT/SIDECAR_TOKEN from the main-process environment.
 import { contextBridge } from "electron";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { isBundledPackFile, resolvePackPath } from "./content/pack-files";
 
 async function sidecarHealth(): Promise<string> {
   const port = process.env.SIDECAR_PORT ?? "4317";
@@ -13,7 +16,12 @@ async function sidecarHealth(): Promise<string> {
   return body.status ?? "unknown";
 }
 
-contextBridge.exposeInMainWorld("api", { sidecarHealth, sttConfig });
+contextBridge.exposeInMainWorld("api", {
+  sidecarHealth,
+  sttConfig,
+  readContentPack,
+  generateContent,
+});
 
 export interface SttConfig {
   port: number;
@@ -25,4 +33,58 @@ async function sttConfig(): Promise<SttConfig> {
     port: Number(process.env.SIDECAR_PORT ?? "4317"),
     token: process.env.SIDECAR_TOKEN ?? "",
   };
+}
+
+function contentBaseDirs(): string[] {
+  const resources = (process as unknown as { resourcesPath?: string }).resourcesPath;
+  return [
+    ...(resources ? [join(resources, "content")] : []),
+    join(__dirname, "..", "..", "..", "content"),
+    join(process.cwd(), "content"),
+    join(process.cwd(), "..", "..", "content"),
+  ];
+}
+
+async function readContentPack(name: string): Promise<string> {
+  if (!isBundledPackFile(name)) throw new Error(`unknown Content Pack file: ${name}`);
+  for (const base of contentBaseDirs()) {
+    try {
+      return await readFile(resolvePackPath(base, name), "utf8");
+    } catch {
+      // Try the next candidate directory.
+    }
+  }
+  throw new Error(`Content Pack file not found: ${name}`);
+}
+
+export type GenerateProvider = "local" | "byok";
+
+export interface GenerateContentRequest {
+  provider: GenerateProvider;
+  level: string;
+  focus: string;
+  count: number;
+  key?: string;
+}
+
+async function generateContent(request: GenerateContentRequest): Promise<unknown> {
+  const { port, token } = await sttConfig();
+  const headers: Record<string, string> = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+  // The user key travels per-request in memory only: never persisted here.
+  if (request.key) headers["X-Provider-Key"] = request.key;
+  const response = await fetch(`http://127.0.0.1:${port}/content/generate`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      provider: request.provider,
+      level: request.level,
+      focus: request.focus,
+      count: request.count,
+    }),
+  });
+  if (!response.ok) throw new Error(`content generate failed: ${response.status}`);
+  return response.json();
 }

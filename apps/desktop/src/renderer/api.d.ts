@@ -3,9 +3,37 @@ export interface SttConfig {
   token: string;
 }
 
+export type BundledPackName = "phrases_100.json" | "prompts_30.json" | "minimal_pairs.json";
+
+export type GenerateProvider = "local" | "byok";
+
+export interface GenerateContentRequest {
+  provider: GenerateProvider;
+  level: string;
+  focus: string;
+  count: number;
+  key?: string;
+}
+
+export interface GeneratedContentItem {
+  text: string;
+  level: string;
+  tags: string[];
+}
+
+export interface GeneratedContent {
+  provider: GenerateProvider;
+  level: string;
+  focus: string;
+  items: GeneratedContentItem[];
+  offline: boolean;
+}
+
 export interface DesktopApi {
   sidecarHealth: () => Promise<string>;
   sttConfig: () => Promise<SttConfig>;
+  readContentPack: (name: BundledPackName) => Promise<string>;
+  generateContent: (request: GenerateContentRequest) => Promise<GeneratedContent>;
 }
 
 declare global {
