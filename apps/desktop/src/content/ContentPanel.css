@@ -1,0 +1,80 @@
+/* Content Packs panel uses semantic tokens only (var(--*)). Never hex literals. */
+.content-panel {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.pack-list,
+.session-list {
+  list-style: none;
+  padding: 0;
+}
+
+.pack-row,
+.session-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-inset-sm);
+  padding: var(--space-inset-sm);
+}
+
+.pack-name {
+  font-weight: bold;
+}
+
+.pack-kind,
+.pack-count {
+  color: var(--color-fg-primary);
+}
+
+.badge-verified {
+  background: var(--color-feedback-pass);
+  color: var(--color-fg-on-primary);
+  border-radius: var(--radius-control-sm);
+  padding: var(--space-inset-sm);
+}
+
+.badge-provider-local {
+  background: var(--color-feedback-pass);
+  color: var(--color-fg-on-primary);
+  border-radius: var(--radius-control-sm);
+  padding: var(--space-inset-sm);
+}
+
+.badge-provider-byok {
+  background: var(--color-feedback-warn);
+  color: var(--color-fg-on-primary);
+  border-radius: var(--radius-control-sm);
+  padding: var(--space-inset-sm);
+}
+
+.pack-empty {
+  color: var(--color-feedback-warn);
+}
+
+.pack-paste {
+  width: 100%;
+  font: inherit;
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.generate-row {
+  display: flex;
+  gap: var(--space-inset-sm);
+}
+
+.byok-key {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-inset-sm);
+}
+
+.key-note {
+  color: var(--color-fg-primary);
+}
+
+.content-error {
+  color: var(--color-feedback-fail);
+}

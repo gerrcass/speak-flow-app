@@ -1,0 +1,126 @@
+{
+  "id": "minimal-pairs-seed",
+  "kind": "minimal-pairs",
+  "items": [
+    {
+      "id": "m01",
+      "pair": [
+        "ship",
+        "sheep"
+      ],
+      "focus": "vowel",
+      "exampleA": "The ship is big.",
+      "exampleB": "The sheep is white."
+    },
+    {
+      "id": "m02",
+      "pair": [
+        "full",
+        "fool"
+      ],
+      "focus": "vowel",
+      "exampleA": "The cup is full.",
+      "exampleB": "He is no fool."
+    },
+    {
+      "id": "m03",
+      "pair": [
+        "thin",
+        "tin"
+      ],
+      "focus": "th",
+      "exampleA": "A thin line.",
+      "exampleB": "A tin can."
+    },
+    {
+      "id": "m04",
+      "pair": [
+        "three",
+        "tree"
+      ],
+      "focus": "th",
+      "exampleA": "Three boys.",
+      "exampleB": "A tall tree."
+    },
+    {
+      "id": "m05",
+      "pair": [
+        "think",
+        "sink"
+      ],
+      "focus": "th",
+      "exampleA": "I think so.",
+      "exampleB": "The sink is clean."
+    },
+    {
+      "id": "m06",
+      "pair": [
+        "mouth",
+        "mouse"
+      ],
+      "focus": "th",
+      "exampleA": "Open your mouth.",
+      "exampleB": "A small mouse."
+    },
+    {
+      "id": "m07",
+      "pair": [
+        "missed",
+        "mist"
+      ],
+      "focus": "ed",
+      "exampleA": "She missed the bus.",
+      "exampleB": "The mist is thick."
+    },
+    {
+      "id": "m08",
+      "pair": [
+        "washed",
+        "watch"
+      ],
+      "focus": "ed",
+      "exampleA": "He washed the car.",
+      "exampleB": "Watch the road."
+    },
+    {
+      "id": "m09",
+      "pair": [
+        "played",
+        "plate"
+      ],
+      "focus": "ed",
+      "exampleA": "They played well.",
+      "exampleB": "A clean plate."
+    },
+    {
+      "id": "m10",
+      "pair": [
+        "record",
+        "record"
+      ],
+      "focus": "stress",
+      "exampleA": "A new record.",
+      "exampleB": "Record your voice."
+    },
+    {
+      "id": "m11",
+      "pair": [
+        "present",
+        "present"
+      ],
+      "focus": "stress",
+      "exampleA": "A birthday present.",
+      "exampleB": "Present your work."
+    },
+    {
+      "id": "m12",
+      "pair": [
+        "desert",
+        "dessert"
+      ],
+      "focus": "stress",
+      "exampleA": "A dry desert.",
+      "exampleB": "Ice cream for dessert."
+    }
+  ]
+}

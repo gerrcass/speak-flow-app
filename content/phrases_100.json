@@ -1,0 +1,806 @@
+{
+  "id": "phrases-100",
+  "kind": "phrases",
+  "items": [
+    {
+      "id": "r001",
+      "text": "Think before you speak.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r002",
+      "text": "Three thin cats sat there.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r003",
+      "text": "I saw them at three.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r004",
+      "text": "Open your mouth wide.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r005",
+      "text": "Thank you for the tea.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r006",
+      "text": "This is my brother.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r007",
+      "text": "That is his mother.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r008",
+      "text": "They play with us today.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r009",
+      "text": "The path is very long.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r010",
+      "text": "A thin line of trees.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r011",
+      "text": "Both of them came home.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r012",
+      "text": "Father is at home now.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r013",
+      "text": "The weather is very nice.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r014",
+      "text": "I think so too.",
+      "level": "A1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r015",
+      "text": "They thought the theater was thrilling.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r016",
+      "text": "Nothing beats a thick hot soup.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r017",
+      "text": "The author thinks through every chapter.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r018",
+      "text": "Breathe through your mouth slowly.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r019",
+      "text": "She threads the needle with care.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r020",
+      "text": "They thanked the author for the story.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r021",
+      "text": "The path through the forest is smooth.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r022",
+      "text": "My teeth ache in the cold air.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r023",
+      "text": "He threw the ball farther than them.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r024",
+      "text": "The thirsty farmer thanked them all.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r025",
+      "text": "Those three things matter most.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r026",
+      "text": "She thought the math was easy.",
+      "level": "A2",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r027",
+      "text": "The authorities strengthened the health guidelines.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r028",
+      "text": "Although the weather threatened, they marched forth.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r029",
+      "text": "The philosopher thought truth mattered more than wealth.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r030",
+      "text": "The audience thrills at the thrilling third act.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r031",
+      "text": "Month after month, they gathered strength.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r032",
+      "text": "The northern path thaws by the third month.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r033",
+      "text": "He hypothesized that both methods were worthy.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r034",
+      "text": "Their empathy soothed the restless youth.",
+      "level": "B1",
+      "tags": [
+        "th"
+      ]
+    },
+    {
+      "id": "r035",
+      "text": "I walked to school.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r036",
+      "text": "She played with the dog.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r037",
+      "text": "They wanted more cake.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r038",
+      "text": "We cooked dinner together.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r039",
+      "text": "He washed the car.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r040",
+      "text": "I helped my mother.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r041",
+      "text": "She liked the song.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r042",
+      "text": "We watched a film.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r043",
+      "text": "He opened the door.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r044",
+      "text": "They cleaned the room.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r045",
+      "text": "I started early today.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r046",
+      "text": "She needed some rest.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r047",
+      "text": "We visited grandma.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r048",
+      "text": "He counted to ten.",
+      "level": "A1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r049",
+      "text": "She finished her homework quickly.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r050",
+      "text": "They painted the fence last weekend.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r051",
+      "text": "He repaired the broken chair.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r052",
+      "text": "We decided to stay home.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r053",
+      "text": "She carried the bag upstairs.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r054",
+      "text": "The baby cried all night.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r055",
+      "text": "He studied English every evening.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r056",
+      "text": "They invited all their friends.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r057",
+      "text": "She answered every question.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r058",
+      "text": "We crossed the crowded street.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r059",
+      "text": "He fixed the leaking tap.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r060",
+      "text": "They waited at the crowded station.",
+      "level": "A2",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r061",
+      "text": "She acknowledged the complicated problem.",
+      "level": "B1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r062",
+      "text": "They accomplished more than expected.",
+      "level": "B1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r063",
+      "text": "He exaggerated the crowded market scene.",
+      "level": "B1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r064",
+      "text": "The committee decided to postpone the event.",
+      "level": "B1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r065",
+      "text": "She graduated with distinguished honors.",
+      "level": "B1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r066",
+      "text": "They negotiated the contract for weeks.",
+      "level": "B1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r067",
+      "text": "He documented every observed change.",
+      "level": "B1",
+      "tags": [
+        "ed"
+      ]
+    },
+    {
+      "id": "r068",
+      "text": "I like bananas.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r069",
+      "text": "The computer is new.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r070",
+      "text": "See you tomorrow.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r071",
+      "text": "She drinks coffee daily.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r072",
+      "text": "The hotel is big.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r073",
+      "text": "We take the bus today.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r074",
+      "text": "He plays guitar well.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r075",
+      "text": "The music is loud.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r076",
+      "text": "I love pizza.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r077",
+      "text": "The rabbit is funny.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r078",
+      "text": "She reads about animals.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r079",
+      "text": "We enjoy the party.",
+      "level": "A1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r080",
+      "text": "The photographer arrived early.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r081",
+      "text": "She studies geography at school.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r082",
+      "text": "He bought bananas and potatoes.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r083",
+      "text": "The computer program is useful.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r084",
+      "text": "They travel together every summer.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r085",
+      "text": "She remembers every birthday.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r086",
+      "text": "The important meeting starts soon.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r087",
+      "text": "He collects interesting postcards.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r088",
+      "text": "We visited the museum yesterday.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r089",
+      "text": "The policeman helped the children.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r090",
+      "text": "She prefers quiet evenings.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r091",
+      "text": "He explains everything clearly.",
+      "level": "A2",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r092",
+      "text": "The photography exhibition opens tonight.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r093",
+      "text": "She practices communication skills daily.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r094",
+      "text": "The university offers evening courses.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r095",
+      "text": "He understands the economic situation.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r096",
+      "text": "The information desk closes early.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r097",
+      "text": "She celebrates her graduation today.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r098",
+      "text": "The dictionary defines every word.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r099",
+      "text": "He organizes community events downtown.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    },
+    {
+      "id": "r100",
+      "text": "The examination begins tomorrow morning.",
+      "level": "B1",
+      "tags": [
+        "stress"
+      ]
+    }
+  ]
+}
