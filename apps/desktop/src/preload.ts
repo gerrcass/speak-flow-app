@@ -21,6 +21,7 @@ contextBridge.exposeInMainWorld("api", {
   sttConfig,
   readContentPack,
   generateContent,
+  ttsExample,
 });
 
 export interface SttConfig {
@@ -87,4 +88,23 @@ async function generateContent(request: GenerateContentRequest): Promise<unknown
   });
   if (!response.ok) throw new Error(`content generate failed: ${response.status}`);
   return response.json();
+}
+
+export interface TtsExample {
+  audio: string;
+  engine: "piper" | "stub";
+}
+
+async function ttsExample(text: string): Promise<TtsExample> {
+  const { port, token } = await sttConfig();
+  const response = await fetch(
+    `http://127.0.0.1:${port}/tts/example?text=${encodeURIComponent(text)}`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  );
+  if (!response.ok) throw new Error(`tts example failed: ${response.status}`);
+  const engine = response.headers.get("x-tts-engine") === "piper" ? "piper" : "stub";
+  const bytes = new Uint8Array(await response.arrayBuffer());
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return { audio: btoa(binary), engine };
 }

@@ -1,0 +1,47 @@
+/* Practice panel uses semantic tokens only (var(--*)). Never hex literals. */
+.practice-panel {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.practice-reference-label {
+  color: var(--color-fg-primary);
+}
+
+.practice-reference {
+  color: var(--color-fg-primary);
+  background: var(--color-surface-app);
+}
+
+.practice-actions {
+  padding: var(--space-inset-sm);
+}
+
+.practice-tts-engine {
+  color: var(--color-fg-primary);
+}
+
+.practice-error {
+  color: var(--color-feedback-fail);
+}
+
+.practice-transcript {
+  color: var(--color-fg-primary);
+}
+
+.practice-score {
+  color: var(--color-fg-primary);
+}
+
+.practice-failed {
+  color: var(--color-feedback-fail);
+}
+
+.practice-fluency {
+  color: var(--color-fg-primary);
+}
+
+.practice-disclaimer {
+  color: var(--color-feedback-warn);
+}
