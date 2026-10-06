@@ -39,8 +39,8 @@ Key decisions: `docs/adr/` (0001 direct local models, 0002 Electron + sidecar, 0
 # 1. Install JS workspaces
 pnpm install
 
-# 2. Install sidecar deps
-pip install -r apps/sidecar/requirements.txt
+# 2. Install sidecar deps (includes pytest + httpx for the test suite)
+pip install -r apps/sidecar/requirements-dev.txt
 
 # 3. Run the sidecar (separate terminal; Electron spawns it automatically in dev)
 SIDECAR_TOKEN=dev-token SIDECAR_PORT=4317 \

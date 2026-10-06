@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: "3.11"
       - run: pnpm install --frozen-lockfile
-      - run: pip install -r apps/sidecar/requirements.txt
+      - run: pip install -r apps/sidecar/requirements-dev.txt
       - name: tokens drift check (regenerate and fail on diff)
         run: pnpm tokens:build && git diff --exit-code -- apps/desktop/generated
       - name: typecheck (includes Button closed-union contract)
