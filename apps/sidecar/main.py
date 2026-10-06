@@ -44,6 +44,15 @@ def models_status() -> dict[str, object]:
     return stt.models_status()
 
 
+@app.post("/models/download", dependencies=[Depends(require_token)])
+def models_download() -> dict[str, object]:
+    """First-run trigger for model weights (ticket #6): starts the download
+    (real load when faster-whisper is present, honest stub otherwise).
+    Progress is reported via GET /models/status and the STT stream
+    download-progress channel."""
+    return stt.trigger_model_download()
+
+
 class GenerateRequest(BaseModel):
     """POST /content/generate body (ADR-0004, ticket #3). Local inference is
     the offline default; BYOK is opt-in cloud billed to the user's own key."""

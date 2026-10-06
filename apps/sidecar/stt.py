@@ -61,6 +61,16 @@ def models_status() -> dict[str, Any]:
     }
 
 
+def trigger_model_download() -> dict[str, Any]:
+    """First-run download trigger: upgrades to the real local model when
+    faster-whisper is installed (weights land in the model dir on first
+    transcription); otherwise an honest stub that reports started without
+    moving weights. Progress keeps flowing over the existing
+    download_progress status channel on the STT stream."""
+    get_transcriber()
+    return {"started": True, "downloaded": is_model_downloaded()}
+
+
 class Transcriber(Protocol):
     """Seam tests stub out: receives 16kHz PCM16 mono, returns text."""
 

@@ -3,8 +3,10 @@ import "./ModelsPanel.css";
 
 // First-run models screen (ticket #6, ADR-0002): the NSIS installer ships
 // no model weights, so this panel reuses GET /models/status progress and
-// shows where weights live plus whether they are on disk yet. The sidecar
-// fetches weights on first transcription; this screen refreshes that state.
+// shows where weights live plus whether they are on disk yet. The "Download
+// models" button triggers POST /models/download (real load when
+// faster-whisper is present, honest stub otherwise); progress keeps arriving
+// over the existing status channel, so this screen refreshes that state.
 export interface ModelStatus {
   model: string;
   downloaded: boolean;
@@ -14,6 +16,7 @@ export interface ModelStatus {
 export function ModelsPanel() {
   const [status, setStatus] = useState<ModelStatus | null>(null);
   const [error, setError] = useState("");
+  const [downloading, setDownloading] = useState(false);
 
   function refresh(): void {
     window.api
@@ -23,6 +26,18 @@ export function ModelsPanel() {
         setError("");
       })
       .catch(() => setError("Model status unreachable."));
+  }
+
+  function download(): void {
+    setDownloading(true);
+    window.api
+      .downloadModels()
+      .then(() => {
+        setError("");
+        refresh();
+      })
+      .catch(() => setError("Model download unreachable; is the sidecar running?"))
+      .finally(() => setDownloading(false));
   }
 
   useEffect(() => {
@@ -42,6 +57,18 @@ export function ModelsPanel() {
       )}
       <button type="button" className="models-refresh" onClick={refresh}>
         Check again
+      </button>
+      <button
+        type="button"
+        className="models-download"
+        onClick={download}
+        disabled={downloading || status?.downloaded === true}
+      >
+        {status?.downloaded === true
+          ? "Models ready"
+          : downloading
+            ? "Starting download…"
+            : "Download models"}
       </button>
     </section>
   );

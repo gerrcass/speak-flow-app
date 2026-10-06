@@ -27,6 +27,10 @@ contextBridge.exposeInMainWorld("api", {
   listAttempts,
   listDueCards,
   modelStatus,
+  downloadModels,
+  setByokKey,
+  getByokKey,
+  hasByokKey,
 });
 
 export interface SttConfig {
@@ -139,4 +143,33 @@ async function modelStatus(): Promise<ModelStatus> {
   });
   if (!response.ok) throw new Error(`models status failed: ${response.status}`);
   return response.json() as Promise<ModelStatus>;
+}
+
+export interface ModelDownload {
+  started: boolean;
+  downloaded: boolean;
+}
+
+async function downloadModels(): Promise<ModelDownload> {
+  const { port, token } = await sttConfig();
+  const response = await fetch(`http://127.0.0.1:${port}/models/download`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw new Error(`models download failed: ${response.status}`);
+  return response.json() as Promise<ModelDownload>;
+}
+
+// BYOK key bridge (ADR-0004): the renderer keeps session memory and mirrors
+// the key into the OS keychain via main-process safeStorage. Never logged.
+async function setByokKey(value: string | null): Promise<boolean> {
+  return ipcRenderer.invoke("byok:set", value) as Promise<boolean>;
+}
+
+async function getByokKey(): Promise<string | null> {
+  return ipcRenderer.invoke("byok:get") as Promise<string | null>;
+}
+
+async function hasByokKey(): Promise<boolean> {
+  return ipcRenderer.invoke("byok:has") as Promise<boolean>;
 }

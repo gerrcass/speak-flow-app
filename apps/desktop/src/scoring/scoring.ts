@@ -1,4 +1,7 @@
 // Scoring for Repeat-after-me + Read-Aloud (ticket #4).
+// Source of truth for served scores is the sidecar scoring.py; this file is
+// the offline-display mirror (same algorithm, tested to match). Keep both in
+// sync when either changes.
 // Glossary: Reference (exact expected text), Transcript (what STT heard),
 // Attempt (one recorded try), Pronunciation Score (100-WER + failed words),
 // Fluency Stats (WPM, pause ratio, filler rate).
@@ -107,7 +110,9 @@ export interface FluencyInput {
   totalMs: number;
 }
 
-/** Fluency Stats from Transcript + VAD-style durations. Filler rate is per minute of speech. */
+/** Fluency Stats from Transcript + VAD-style durations. Filler rate is per minute of speech.
+ * Honest stub: pauseRatio is derived from caller-supplied durations, not a real
+ * VAD — callers without silence measurement pass identical values (pause 0). */
 export function computeFluency(input: FluencyInput): FluencyStats {
   const words = tokenize(input.transcript);
   const minutes = input.speechMs / 60000;

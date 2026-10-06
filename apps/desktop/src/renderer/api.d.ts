@@ -49,6 +49,11 @@ export interface ModelStatus {
   path: string;
 }
 
+export interface ModelDownload {
+  started: boolean;
+  downloaded: boolean;
+}
+
 export interface DesktopApi {
   sidecarHealth: () => Promise<string>;
   sttConfig: () => Promise<SttConfig>;
@@ -59,6 +64,10 @@ export interface DesktopApi {
   listAttempts: () => Promise<AttemptRow[]>;
   listDueCards: (now: string) => Promise<SrsCardForView[]>;
   modelStatus: () => Promise<ModelStatus>;
+  downloadModels: () => Promise<ModelDownload>;
+  setByokKey: (value: string | null) => Promise<boolean>;
+  getByokKey: () => Promise<string | null>;
+  hasByokKey: () => Promise<boolean>;
 }
 
 declare global {
