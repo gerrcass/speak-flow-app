@@ -9,6 +9,7 @@
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test && python3 -m pytest apps/sidecar/tests/",
     "lint": "pnpm -r lint",
-    "tokens:build": "pnpm --filter @speak-flow/desktop tokens:build"
+    "tokens:build": "pnpm --filter @speak-flow/desktop tokens:build",
+    "postinstall": "node scripts/ensure-electron.mjs"
   }
 }

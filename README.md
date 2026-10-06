@@ -136,6 +136,10 @@ docs/  adr/, design-system/, gdp-ts/, packaging/, agents/
   ```
 - The `zod ... contains an annotation that Rollup cannot interpret` warnings
   during `vite build` are harmless (Rollup strips those comments).
+- `ERROR:viz_main_impl.cc ... Exiting GPU process` in the terminal on GPU-less
+  machines/VMs is a harmless Chromium warning (software fallback kicks in).
+  If the window stays black, try `electron . --disable-gpu` from
+  `apps/desktop` after building, or run on a machine with GPU drivers.
 
 - `401 invalid sidecar token`: `SIDECAR_TOKEN` must match between the sidecar process and the Electron main process. In manual runs, export the same value in both terminals.
 - `Port in use`: override with `SIDECAR_PORT=<free-port>` in both processes.
