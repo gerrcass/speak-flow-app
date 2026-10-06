@@ -1,0 +1,23 @@
+/* Models panel uses semantic tokens only (var(--*)). Never hex literals. */
+.models-panel {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.models-status {
+  color: var(--color-fg-primary);
+}
+
+.models-empty {
+  color: var(--color-fg-primary);
+}
+
+.models-error {
+  color: var(--color-feedback-fail);
+}
+
+.models-refresh {
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
