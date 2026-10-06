@@ -1,0 +1,39 @@
+/* Button styles use semantic tokens only (var(--*)). Never hex literals. */
+.btn {
+  border: 1px solid transparent;
+  border-radius: var(--radius-control-sm);
+  cursor: pointer;
+  font: inherit;
+}
+
+.btn-primary {
+  background: var(--color-action-primary);
+  color: var(--color-fg-on-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-action-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+  border-color: var(--color-action-primary);
+}
+
+.btn-danger {
+  background: var(--color-action-danger);
+  color: var(--color-fg-on-primary);
+}
+
+.btn-sm {
+  padding: var(--space-inset-sm);
+}
+
+.btn-md {
+  padding: var(--space-inset-md);
+}
+
+.btn-lg {
+  padding: calc(var(--space-inset-md) * 1.5);
+}

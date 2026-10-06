@@ -1,0 +1,13 @@
+{
+  "name": "speak-flow-app",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "pnpm --filter @speak-flow/desktop dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test && python3 -m pytest apps/sidecar/tests/",
+    "tokens:build": "pnpm --filter @speak-flow/desktop tokens:build"
+  }
+}

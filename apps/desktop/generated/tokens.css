@@ -1,0 +1,23 @@
+/* generated, do not edit — run `pnpm tokens:build` instead */
+:root {
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-red-600: #dc2626;
+  --color-green-600: #16a34a;
+  --color-amber-500: #f59e0b;
+  --color-neutral-0: #ffffff;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-900: #111827;
+  --color-action-primary: var(--color-blue-600);
+  --color-action-primary-hover: var(--color-blue-500);
+  --color-action-danger: var(--color-red-600);
+  --color-feedback-pass: var(--color-green-600);
+  --color-feedback-warn: var(--color-amber-500);
+  --color-feedback-fail: var(--color-red-600);
+  --color-surface-app: var(--color-neutral-100);
+  --color-fg-primary: var(--color-neutral-900);
+  --color-fg-on-primary: var(--color-neutral-0);
+  --space-inset-sm: 8px;
+  --space-inset-md: 16px;
+  --radius-control-sm: 6px;
+}
