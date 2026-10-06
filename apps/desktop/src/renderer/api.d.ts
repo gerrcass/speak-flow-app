@@ -34,12 +34,17 @@ export interface TtsExample {
   engine: "piper" | "stub";
 }
 
+import type { AttemptRow } from "../freetalk/store.ts";
+export type { AttemptRow };
+
 export interface DesktopApi {
   sidecarHealth: () => Promise<string>;
   sttConfig: () => Promise<SttConfig>;
   readContentPack: (name: BundledPackName) => Promise<string>;
   generateContent: (request: GenerateContentRequest) => Promise<GeneratedContent>;
   ttsExample: (text: string) => Promise<TtsExample>;
+  saveAttempt: (row: AttemptRow) => Promise<boolean>;
+  listAttempts: () => Promise<AttemptRow[]>;
 }
 
 declare global {

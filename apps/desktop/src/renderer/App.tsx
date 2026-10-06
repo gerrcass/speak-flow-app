@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { ContentPanel } from "../content/ContentPanel";
+import { FreetalkPanel } from "../freetalk/FreetalkPanel";
 import { PracticePanel } from "../practice/PracticePanel";
 import { SttPanel } from "../stt/SttPanel";
 
@@ -30,6 +31,7 @@ export function App() {
       </Button>
       <SttPanel />
       <PracticePanel />
+      <FreetalkPanel />
       <ContentPanel />
     </main>
   );
