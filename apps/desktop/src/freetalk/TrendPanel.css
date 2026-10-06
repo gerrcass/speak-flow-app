@@ -1,0 +1,32 @@
+/* Trend panel uses semantic tokens only (var(--*)). Never hex literals. */
+.trend-panel {
+  padding: var(--space-inset-md);
+  background: var(--color-surface-app);
+  color: var(--color-fg-primary);
+}
+
+.trend-sparkline {
+  width: 100%;
+  max-width: 320px;
+}
+
+.trend-line {
+  stroke: var(--color-feedback-pass);
+  stroke-width: 2;
+}
+
+.trend-dot {
+  fill: var(--color-feedback-warn);
+}
+
+.trend-days {
+  color: var(--color-fg-primary);
+}
+
+.trend-wpm {
+  color: var(--color-fg-primary);
+}
+
+.trend-error {
+  color: var(--color-feedback-fail);
+}

@@ -5,6 +5,7 @@ import { join } from "node:path";
 import type { DatabaseSync } from "node:sqlite";
 import { app, BrowserWindow, ipcMain } from "electron";
 import { listAttempts, openAttemptsDb, saveAttempt, type AttemptRow } from "./freetalk/store";
+import { listDueCards } from "./srs/cards";
 import { waitForSidecar } from "./sidecar";
 
 let sidecar: ChildProcess | null = null;
@@ -58,13 +59,30 @@ function registerAttemptHandlers(): void {
     return true;
   });
   ipcMain.handle("attempts:list", () => listAttempts(attemptsDb()));
+  ipcMain.handle("srs:list-due", (_event, now: string) => listDueCards(attemptsDb(), now));
 }
 
 app.whenReady().then(async () => {
   registerAttemptHandlers();
   await startSidecar();
   createWindow();
+  void checkForUpdates();
 });
+
+// electron-updater (ticket #6): check the stub feed on start. The feed URL
+// lives in package.json build.publish; SPEAK_FLOW_UPDATE_URL overrides it
+// (CI/staging). Failures are swallowed: offline-first means updates are best
+// effort, never a startup blocker.
+async function checkForUpdates(): Promise<void> {
+  try {
+    const { autoUpdater } = await import("electron-updater");
+    const override = process.env.SPEAK_FLOW_UPDATE_URL;
+    if (override) autoUpdater.setFeedURL({ provider: "generic", url: override });
+    await autoUpdater.checkForUpdatesAndNotify();
+  } catch {
+    // No feed reachable (dev/offline): the app runs on as usual.
+  }
+}
 
 app.on("before-quit", () => {
   sidecar?.kill();

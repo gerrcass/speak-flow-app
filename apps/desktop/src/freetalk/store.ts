@@ -40,6 +40,13 @@ export function openAttemptsDb(path: string): DatabaseSync {
       ease REAL NOT NULL
     );
   `);
+  // Ticket #6: promotion count drives the SM-2 1d/3d/7d progression.
+  // ALTER is a no-op when the column already exists (pre-#6 databases).
+  try {
+    db.exec("ALTER TABLE srs_cards ADD COLUMN reps INTEGER NOT NULL DEFAULT 0");
+  } catch {
+    // Column already present.
+  }
   return db;
 }
 

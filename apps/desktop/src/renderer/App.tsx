@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
 import { ContentPanel } from "../content/ContentPanel";
 import { FreetalkPanel } from "../freetalk/FreetalkPanel";
+import { TrendPanel } from "../freetalk/TrendPanel";
+import { ModelsPanel } from "../models/ModelsPanel";
 import { PracticePanel } from "../practice/PracticePanel";
+import { DrillPanel } from "../srs/DrillPanel";
 import { SttPanel } from "../stt/SttPanel";
 
 // Placeholder window for ticket #1. Practice formats (Repeat-after-me,
@@ -32,6 +35,9 @@ export function App() {
       <SttPanel />
       <PracticePanel />
       <FreetalkPanel />
+      <TrendPanel />
+      <DrillPanel />
+      <ModelsPanel />
       <ContentPanel />
     </main>
   );

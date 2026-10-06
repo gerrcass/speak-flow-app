@@ -25,10 +25,10 @@ test("scoreAttempt rejects a forged proof at runtime", () => {
       withTranscribedAttempt(
         { id: "a1", reference: "the cat sat", audioMs: 3000 },
         "the cat sat",
-        (attempt, proof) =>
+        (attempt) =>
           scoreAttempt(attempt, {
             kind: "SomethingElse",
-          } as unknown as typeof proof),
+          } as unknown as never),
       ),
     /AttemptTranscribed/,
   );

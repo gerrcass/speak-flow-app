@@ -37,6 +37,18 @@ export interface TtsExample {
 import type { AttemptRow } from "../freetalk/store.ts";
 export type { AttemptRow };
 
+export interface SrsCardForView {
+  phraseId: string;
+  nextDue: string;
+  ease: number;
+}
+
+export interface ModelStatus {
+  model: string;
+  downloaded: boolean;
+  path: string;
+}
+
 export interface DesktopApi {
   sidecarHealth: () => Promise<string>;
   sttConfig: () => Promise<SttConfig>;
@@ -45,6 +57,8 @@ export interface DesktopApi {
   ttsExample: (text: string) => Promise<TtsExample>;
   saveAttempt: (row: AttemptRow) => Promise<boolean>;
   listAttempts: () => Promise<AttemptRow[]>;
+  listDueCards: (now: string) => Promise<SrsCardForView[]>;
+  modelStatus: () => Promise<ModelStatus>;
 }
 
 declare global {

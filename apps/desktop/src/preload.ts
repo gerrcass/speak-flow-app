@@ -25,6 +25,8 @@ contextBridge.exposeInMainWorld("api", {
   ttsExample,
   saveAttempt,
   listAttempts,
+  listDueCards,
+  modelStatus,
 });
 
 export interface SttConfig {
@@ -118,4 +120,23 @@ async function saveAttempt(row: AttemptRow): Promise<boolean> {
 
 async function listAttempts(): Promise<AttemptRow[]> {
   return ipcRenderer.invoke("attempts:list") as Promise<AttemptRow[]>;
+}
+
+async function listDueCards(now: string): Promise<unknown> {
+  return ipcRenderer.invoke("srs:list-due", now) as Promise<unknown>;
+}
+
+export interface ModelStatus {
+  model: string;
+  downloaded: boolean;
+  path: string;
+}
+
+async function modelStatus(): Promise<ModelStatus> {
+  const { port, token } = await sttConfig();
+  const response = await fetch(`http://127.0.0.1:${port}/models/status`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!response.ok) throw new Error(`models status failed: ${response.status}`);
+  return response.json() as Promise<ModelStatus>;
 }
