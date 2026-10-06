@@ -1,0 +1,59 @@
+# Button
+
+> Breadcrumb 03: component contract agents cannot violate without a type error.
+> Copy this shape for every new component: discriminated-union props + runnable sample + token-only styling.
+
+## Contract
+
+```tsx
+type ButtonVariant = 'primary' | 'secondary' | 'danger';
+type ButtonSize = 'sm' | 'md' | 'lg';
+
+export interface ButtonProps {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+```
+
+Rules:
+- `variant` and `size` are closed unions. `size="huge"` must fail type-check. Never `size?: string`.
+- Styling uses semantic tokens only (`var(--color-action-primary)`). Never hex literals.
+- States (hover/disabled) come from tokens (`color.action.primary-hover`), not invented values.
+
+## Usage (type-checked, copy-paste safe)
+
+```tsx
+import { Button } from '@/components/Button';
+
+export function RecordButton() {
+  return (
+    <Button variant="primary" size="md" onClick={() => window.api.startAttempt()}>
+      Record attempt
+    </Button>
+  );
+}
+```
+
+```css
+/* generated from tokens.json — do not hand-edit */
+.btn-primary {
+  background: var(--color-action-primary);
+  color: var(--color-fg-on-primary);
+  padding: var(--space-inset-md);
+  border-radius: var(--radius-control-sm);
+}
+.btn-danger {
+  background: var(--color-action-danger);
+  color: var(--color-fg-on-primary);
+}
+```
+
+## Score colors (practice-specific)
+
+- Pass (`>85%`): `var(--color-feedback-pass)` + word list.
+- Warn (`70-85%`): `var(--color-feedback-warn)` + "drill recommended".
+- Fail (`<70%`): `var(--color-feedback-fail)` + "send to SRS".
+
+Agents: pick the token by score band. Never invent a new green.

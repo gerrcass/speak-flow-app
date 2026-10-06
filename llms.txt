@@ -1,0 +1,22 @@
+# Speak Flow Design System
+
+> Tokens, components, and patterns for speak-flow-app. AI-readable entry map.
+
+## Tokens
+- docs/design-system/tokens/tokens.json: W3C source of truth (primitive + semantic)
+- docs/design-system/tokens/README.md: layering + naming axis + anti-patterns
+
+## Components
+- docs/design-system/components/Button.mdx: typed contract + runnable sample (template for all components)
+
+## Method
+- docs/design-system/README.md: choice (shadcn + Tailwind + W3C) + six-step status + reading order
+
+## Rules
+- Never hardcode hex in components. Use `var(--color-*)`, `var(--space-*)`, `var(--radius-*)`.
+- Never use primitive tokens in components. Reach for the semantic layer.
+- Never add `size?: string` style open props. Use closed unions so type-check rejects inventions.
+- Never hand-edit generated outputs (`tokens.css`, `tokens.ts`). Edit `tokens.json`, then generate.
+
+## Decisions
+- docs/adr/0003-shadcn-tailwind-w3c-tokens.md: why this stack
