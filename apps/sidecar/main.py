@@ -8,13 +8,15 @@ Ticket #1 exposed GET /health; ticket #2 adds the STT stream + model status.
 import os
 
 import uvicorn
-from fastapi import Depends, FastAPI, Header, HTTPException, WebSocket, status
+from fastapi import Depends, FastAPI, Header, HTTPException, Response, WebSocket, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field
 from typing import Literal
 
 import content_gen
+import scoring
 import stt
+import tts
 
 _bearer = HTTPBearer(auto_error=False)
 
@@ -76,6 +78,51 @@ def content_generate(
             )
         return content_gen.generate_byok(request.level, request.focus, request.count)
     return content_gen.generate_local(request.level, request.focus, request.count)
+
+
+class ScoreRequest(BaseModel):
+    """POST /score body (ticket #4). Reference is the exact expected text,
+    Transcript is what STT heard; durations are VAD-style milliseconds."""
+
+    reference: str
+    transcript: str = ""
+    speech_ms: int = Field(default=0, ge=0)
+    total_ms: int = Field(default=0, ge=0)
+
+
+@app.post("/score", dependencies=[Depends(require_token)])
+def score_attempt(request: ScoreRequest) -> dict[str, object]:
+    if not request.reference.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="reference must not be empty"
+        )
+    score = scoring.pronunciation_score(request.reference, request.transcript)
+    fluency = scoring.compute_fluency(
+        request.transcript, request.speech_ms, request.total_ms
+    )
+    return {
+        "wer": round(scoring.compute_wer(request.reference, request.transcript), 2),
+        "score": score,
+        "band": scoring.score_band(score),
+        "failed_words": scoring.failed_words(request.reference, request.transcript),
+        **fluency,
+    }
+
+
+@app.get("/tts/example", dependencies=[Depends(require_token)])
+def tts_example(text: str = "") -> Response:
+    """Piper TTS example for Repeat-after-me. X-TTS-Engine says honestly
+    whether real Piper or the offline stub served the audio."""
+    if not text.strip():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="text must not be empty"
+        )
+    wav, engine = tts.synthesize(text)
+    return Response(
+        content=wav,
+        media_type="audio/wav",
+        headers={"X-TTS-Engine": engine},
+    )
 
 
 def _is_end_message(raw: str) -> bool:

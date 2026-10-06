@@ -29,11 +29,17 @@ export interface GeneratedContent {
   offline: boolean;
 }
 
+export interface TtsExample {
+  audio: string;
+  engine: "piper" | "stub";
+}
+
 export interface DesktopApi {
   sidecarHealth: () => Promise<string>;
   sttConfig: () => Promise<SttConfig>;
   readContentPack: (name: BundledPackName) => Promise<string>;
   generateContent: (request: GenerateContentRequest) => Promise<GeneratedContent>;
+  ttsExample: (text: string) => Promise<TtsExample>;
 }
 
 declare global {

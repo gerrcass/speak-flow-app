@@ -50,3 +50,6 @@ All JSON-local + 1 table, zero API.
 ## What we deliberately don't clone
 
 F10 ELSA-like phoneme-perfect feedback needs proprietary accent models. Offline we approximate (WER + CMUdict proxy + tú-vs-TTS re-listen + targeted minimal drill). That delivers ~80% perceived value without promising 95% phoneme accuracy.
+
+## Ticket #4 crumb
+Repeat-after-me + Read-Aloud scored loop ships bands pass >85 / warn 70-85 / fail <70 on Pronunciation Score (100-WER) with disclaimer "emulacion calibrada, no certificador"; scoreAttempt demands AttemptTranscribed, TTS example is Piper-or-stub via honest X-TTS-Engine header.
