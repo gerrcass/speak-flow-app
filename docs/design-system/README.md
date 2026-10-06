@@ -62,3 +62,4 @@ just drop the crumb.
 ## Crumbs
 
 - 01 app shell: generated outputs live in `apps/desktop/generated/` (outside `src/`) so the CI hex-gate can scan `src/` with zero exclusions; `size="lg"` derives from tokens via `calc(var(--space-inset-md) * 1.5)` instead of a new token.
+- 02 live Transcript: `SttPanel` reuses the Button contract and only existing semantic tokens (`feedback-warn/fail/pass` for progress/error/final), so no new token was needed.

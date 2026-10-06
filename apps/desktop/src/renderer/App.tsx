@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
+import { SttPanel } from "../stt/SttPanel";
 
 // Placeholder window for ticket #1. Practice formats (Repeat-after-me,
 // Read-Aloud, Free-talk) and their Attempt loop arrive in later tickets.
@@ -25,6 +26,7 @@ export function App() {
       >
         Record Attempt
       </Button>
+      <SttPanel />
     </main>
   );
 }
