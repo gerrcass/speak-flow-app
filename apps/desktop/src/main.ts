@@ -6,6 +6,7 @@ import { unlink, readFile, writeFile } from "node:fs/promises";
 import type { DatabaseSync } from "node:sqlite";
 import { app, BrowserWindow, ipcMain, safeStorage } from "electron";
 import { listAttempts, openAttemptsDb, saveAttempt, type AttemptRow } from "./freetalk/store";
+import { isBundledPackFile, resolvePackPath } from "./content/pack-files";
 import { listDueCards } from "./srs/cards";
 import { waitForSidecar } from "./sidecar";
 
@@ -54,8 +55,37 @@ function attemptsDb(): DatabaseSync {
   return db;
 }
 
-function registerAttemptHandlers(): void {
-  ipcMain.handle("attempts:save", (_event, row: AttemptRow) => {
+// Sidecar connection info + Content Pack file reads live in main because the
+// sandboxed preload has no Node.js access (no process.env, fs, or path).
+// The renderer reaches them through the preload bridge only.
+function contentBaseDirs(): string[] {
+  const resources = (process as unknown as { resourcesPath?: string }).resourcesPath;
+  return [
+    ...(resources ? [join(resources, "content")] : []),
+    join(__dirname, "..", "..", "..", "content"),
+    join(process.cwd(), "content"),
+    join(process.cwd(), "..", "..", "content"),
+  ];
+}
+
+function registerSidecarHandlers(): void {
+  ipcMain.handle("sidecar:config", () => ({ port: PORT, token: TOKEN }));
+  ipcMain.handle("content:read", async (_event, name: unknown) => {
+    if (typeof name !== "string" || !isBundledPackFile(name)) {
+      throw new Error(`unknown Content Pack file: ${name}`);
+    }
+    for (const base of contentBaseDirs()) {
+      try {
+        return await readFile(resolvePackPath(base, name), "utf8");
+      } catch {
+        // Try the next candidate directory.
+      }
+    }
+    throw new Error(`Content Pack file not found: ${name}`);
+  });
+}
+
+function registerAttemptHandlers(): void {  ipcMain.handle("attempts:save", (_event, row: AttemptRow) => {
     saveAttempt(attemptsDb(), row);
     return true;
   });
@@ -126,11 +156,12 @@ function registerByokHandlers(): void {
 }
 
 app.whenReady().then(async () => {
+  registerSidecarHandlers();
   registerAttemptHandlers();
   registerByokHandlers();
   await startSidecar();
   createWindow();
-  void checkForUpdates();
+  if (app.isPackaged) void checkForUpdates();
 });
 
 // electron-updater (ticket #6): check the stub feed on start. The feed URL

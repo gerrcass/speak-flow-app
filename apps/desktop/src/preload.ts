@@ -1,14 +1,11 @@
-// Preload bridge: renderer asks the sidecar /health through here.
-// Reads SIDECAR_PORT/SIDECAR_TOKEN from the main-process environment.
+// Preload bridge: sandboxed (no Node.js here: no process.env, fs, or path).
+// File reads and env-dependent config live in main and are reached via ipc.
+// fetch is a Chromium API, so sidecar HTTP calls stay in the preload.
 import { contextBridge, ipcRenderer } from "electron";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { isBundledPackFile, resolvePackPath } from "./content/pack-files";
 import type { AttemptRow } from "./freetalk/store";
 
 async function sidecarHealth(): Promise<string> {
-  const port = process.env.SIDECAR_PORT ?? "4317";
-  const token = process.env.SIDECAR_TOKEN ?? "";
+  const { port, token } = await sttConfig();
   const response = await fetch(`http://127.0.0.1:${port}/health`, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -39,32 +36,11 @@ export interface SttConfig {
 }
 
 async function sttConfig(): Promise<SttConfig> {
-  return {
-    port: Number(process.env.SIDECAR_PORT ?? "4317"),
-    token: process.env.SIDECAR_TOKEN ?? "",
-  };
-}
-
-function contentBaseDirs(): string[] {
-  const resources = (process as unknown as { resourcesPath?: string }).resourcesPath;
-  return [
-    ...(resources ? [join(resources, "content")] : []),
-    join(__dirname, "..", "..", "..", "content"),
-    join(process.cwd(), "content"),
-    join(process.cwd(), "..", "..", "content"),
-  ];
+  return ipcRenderer.invoke("sidecar:config") as Promise<SttConfig>;
 }
 
 async function readContentPack(name: string): Promise<string> {
-  if (!isBundledPackFile(name)) throw new Error(`unknown Content Pack file: ${name}`);
-  for (const base of contentBaseDirs()) {
-    try {
-      return await readFile(resolvePackPath(base, name), "utf8");
-    } catch {
-      // Try the next candidate directory.
-    }
-  }
-  throw new Error(`Content Pack file not found: ${name}`);
+  return ipcRenderer.invoke("content:read", name) as Promise<string>;
 }
 
 export type GenerateProvider = "local" | "byok";
